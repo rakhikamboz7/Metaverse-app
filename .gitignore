@@ -1,0 +1,45 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# lock files (ignore nested ones)
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# keep root package-lock if you want team consistency
+!package-lock.json
+
+# build output
+dist/
+build/
+out/
+.next/
+coverage/
+.turbo/
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# typescript
+*.tsbuildinfo
+
+# editors / system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# temp / cache
+tmp/
+temp/
+.cache/
+*.cache
