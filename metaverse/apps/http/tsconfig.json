@@ -3,26 +3,26 @@
   "compilerOptions": {
     // File Layout
     "rootDir": "./src",
-  
+    "outDir": "./dist",
+ 
+    //all the code would b written inside src folder an when that
+    //  typescipt code gets converted into javascript would be moved to dist folder 0
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
-    "target": "ES2020",
+    "module": "nodenext",
+    "target": "ES2022",
   
     // For nodejs:
-    "lib": ["ES2020"],
+    "lib": ["ES2022"],
     "types": ["node"],
     // and npm install -D @types/node
 
     // Other Outputs
     "sourceMap": true,
-    "declaration": true,
     "declarationMap": true,
+    "declaration": true,
 
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
 
     // Style Options
     // "noImplicitReturns": true,
@@ -41,5 +41,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+   "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
