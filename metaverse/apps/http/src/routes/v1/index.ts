@@ -1,6 +1,9 @@
 //export root router
 
 import {Router} from "express"
+import { userRouter } from "./user.js";
+import { spaceRouter } from "./space.js";
+import { adminRouter } from "./admin.js";
 
 export const router=  Router();
 

@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"  //how genrating the client - the final bundle tat has the code to connect to the database 
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+model User {
+  id       String  @id @default(cuid())
+  username String  @unique
+  password String
+  avatarId String?
+  role     Role
+  spaces   Space[]   //every user can have multiple spaces and every spcae will have corresponding admin  
+  avatar Avatar? @relation(fields: [avatarId], references: [id])
+}
+
+model Space {
+  id        String          @id @unique @default(cuid())
+  name      String
+  width     Int
+  height    Int?
+  thumbnail String?
+  creatorId String   //admin of the space who can own this space and delete this
+  creator    User   @relation(fields: [creatorId], references: [id])
+  elements SpaceElements[]      //adminId is the foreign key to the user's Id
+}
+
+model SpaceElements {
+  id        String  @id @default(cuid())
+  elementId String
+  spaceId   String
+  x         Int
+  y         Int
+
+  element Element @relation(fields: [elementId], references: [id])
+  space   Space   @relation(fields: [spaceId], references: [id])
+}
+
+model Element {
+  id       String @id @unique @default(cuid())
+  width    Int
+  height   Int
+  imageUrl String
+
+  spaces SpaceElements[]
+  mapElements   MapElements[]
+}
+
+model Map {
+  id     String  @id @unique @default(cuid())
+  width  Int
+  height Int?
+  name   String?
+
+  elements MapElements[]
+}
+
+model MapElements {
+  id        String  @id @unique @default(cuid())
+  mapId     String
+  elementId String?
+  x         Int?
+  y         Int?
+
+  map     Map      @relation(fields: [mapId], references: [id])
+  element Element? @relation(fields: [elementId], references: [id])
+}
+
+model Avatar {
+  id       String  @id @unique @default(cuid())
+  imageUrl String?
+  name     String?
+
+  users    User[]
+}
+
+enum Role {
+  Admin
+  User
+}
